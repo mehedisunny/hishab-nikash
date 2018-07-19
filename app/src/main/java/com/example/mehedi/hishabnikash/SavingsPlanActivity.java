@@ -64,6 +64,10 @@ public class SavingsPlanActivity extends AppCompatActivity implements View.OnCli
         listView.setAdapter(savingsAdapter);
     }
 
+    public void clearFields () {
+        editTextBudget.setText("");
+    }
+
     public void setListener() {
         btnSaveBudget.setOnClickListener(this);
     }
@@ -79,11 +83,13 @@ public class SavingsPlanActivity extends AppCompatActivity implements View.OnCli
                 DbHelper dbHelper = new DbHelper(this);
                 Cursor cursor = dbHelper.checkSavingsPlan(month, year);
                 if (cursor.getCount() > 0) {
-                    dbHelper.updateSavingsPlan(Integer.parseInt(amount), month, year);
+                    dbHelper.updateSavingsPlan(new SavingsPlanHolder(targetAmount, month, year));
+                    clearFields();
                     setListView();
                     Toast.makeText(this,"Target amount for this month is updated",Toast.LENGTH_SHORT).show();
                 } else {
-                    long id = dbHelper.addSavingsPlan(targetAmount, month, year);
+                    long id = dbHelper.addSavingsPlan(new SavingsPlanHolder(targetAmount,0,month,year));
+                    clearFields();
                     if (id > 0) {
                         Toast.makeText(this,"Your target amount for this month is set to BDT "+targetAmount,Toast.LENGTH_SHORT).show();
                     } else {

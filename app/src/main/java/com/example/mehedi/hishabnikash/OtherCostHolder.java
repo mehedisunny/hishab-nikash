@@ -11,6 +11,14 @@ public class OtherCostHolder {
     private int year;
     Calendar calendar;
 
+    public OtherCostHolder (int id, String purpose, int date, int month, int year) {
+        this.purpose = purpose;
+        calendar = Calendar.getInstance();
+        this.date = calendar.get(Calendar.DATE);
+        this.month = calendar.get(Calendar.MONTH);
+        this.year = calendar.get(Calendar.YEAR);
+    }
+
     public OtherCostHolder (String purpose, int amount) {
         this.purpose = purpose;
         this.amount = amount;

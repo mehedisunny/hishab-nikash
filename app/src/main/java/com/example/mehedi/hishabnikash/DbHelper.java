@@ -85,14 +85,14 @@ public class DbHelper extends SQLiteOpenHelper {
         onCreate(sqLiteDatabase);
     }
 
-    public long addSavingsPlan (int amount,int month, int year) {
+    public long addSavingsPlan (SavingsPlanHolder savingsPlanHolder) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
-        contentValues.put("EXPECTED_AMOUNT",amount);
-        contentValues.put("ACTUAL_AMOUNT",0);
-        contentValues.put("MONTH",month);
-        contentValues.put("YEAR",year);
+        contentValues.put("EXPECTED_AMOUNT",savingsPlanHolder.getBudgetAmount());
+        contentValues.put("ACTUAL_AMOUNT",savingsPlanHolder.getExpenseAmount());
+        contentValues.put("MONTH",savingsPlanHolder.getMonth());
+        contentValues.put("YEAR",savingsPlanHolder.getYear());
 
         long insertedID = db.insert(TBL_SAVINGS_PLAN, null,contentValues);
         return insertedID;
@@ -111,12 +111,12 @@ public class DbHelper extends SQLiteOpenHelper {
         return cursor;
     }
 
-    public void updateSavingsPlan (int amount, int month, int year) {
+    public void updateSavingsPlan (SavingsPlanHolder savingsPlanHolder) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put("EXPECTED_AMOUNT", amount);
+        contentValues.put("EXPECTED_AMOUNT", savingsPlanHolder.getBudgetAmount());
 
-        db.update(TBL_SAVINGS_PLAN, contentValues, "MONTH = ? AND YEAR = ?", new String[] {month+"", year+""});
+        db.update(TBL_SAVINGS_PLAN, contentValues, "MONTH = ? AND YEAR = ?", new String[] {savingsPlanHolder.getMonth()+"", savingsPlanHolder.getYear()+""});
     }
 
     public long addOtherCost (OtherCostHolder otherCostHolder) {
