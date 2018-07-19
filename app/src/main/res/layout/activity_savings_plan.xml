@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".SavingsPlanActivity"
+    android:background="#197242">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="4">
+
+        <EditText
+            android:id="@+id/et_monthlyBudget"
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:layout_height="40dp"
+            android:padding="10dp"
+            android:textSize="16sp"
+            android:singleLine="true"
+            android:inputType="number"
+            android:layout_margin="10dp"
+            android:textColor="#fff"
+            android:textColorHint="#fff"
+            android:layout_marginBottom="25dp"
+            android:hint="@string/saving_layout_month_input_hint"/>
+
+
+        <Button
+            android:id="@+id/btnSaveBudget"
+            android:layout_width="0dp"
+            android:textSize="16sp"
+            android:layout_weight="1"
+            android:layout_height="40dp"
+            android:textAllCaps="false"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="10dp"
+            android:textColor="@color/colorPrimary"
+            android:text="Add"
+            android:padding="10dp"
+            android:drawableRight="@android:drawable/ic_input_add"
+            android:background="#fff"
+            android:layout_marginRight="10dp" />
+
+    </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:text="Previous Savings Plan History"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textStyle="italic"
+        android:textSize="26sp"
+        android:textColor="#fff"
+        android:layout_marginBottom="15dp"/>
+
+    <ListView
+        android:id="@+id/listViewSavingsPlan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:dividerHeight="5dp"
+        android:layout_margin="10dp">
+
+    </ListView>
+
+</LinearLayout>

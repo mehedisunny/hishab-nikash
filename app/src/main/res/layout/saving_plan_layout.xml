@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#fff">
+
+    <TextView
+        android:id="@+id/tv_savingsHeading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/saving_layout_heading"
+        android:textSize="24sp"
+        android:padding="10dp"
+        android:textAlignment="center"/>
+
+    <TextView
+        android:id="@+id/tv_savingsMonth"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/saving_layout_heading"
+        android:textSize="14sp"
+        android:padding="5dp"
+        android:textAlignment="center"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="3">
+
+        <TextView
+            android:id="@+id/tvExpectedBudget"
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:padding="10dp"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/tvEstimatedBudget"
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:textStyle="bold"
+            android:padding="10dp"
+            android:textSize="16sp"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/tvSavingsResult"
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:textStyle="bold"
+            android:padding="10dp"
+            android:textSize="16sp"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+</LinearLayout>

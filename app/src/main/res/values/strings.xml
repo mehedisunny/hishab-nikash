@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">HishabNikash</string>
+    <string name="tong_dokan">Tong Dokaner Hishab</string>
+    <string name="vehicle_cost">Janbahon Khoroch</string>
+    <string name="others_cost">Others Bill</string>
+    <string name="savings_bill">Savings Plan</string>
+    <string name="saving_layout_heading">Savings Plan</string>
+    <string name="saving_layout_month">July, 2018</string>
+    <string name="saving_layout_month_input_hint">Please enter your target amount</string>
+</resources>
