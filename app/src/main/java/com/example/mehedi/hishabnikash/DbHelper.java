@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class DbHelper extends SQLiteOpenHelper {
@@ -106,7 +107,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
     public Cursor getAllSavingsPlan () {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.query(TBL_SAVINGS_PLAN, null, null,null,null,null, "ORDER BY _ID DESC");
+        Cursor cursor = db.query(TBL_SAVINGS_PLAN, null, null,null,null,null, "_ID DESC");
         return cursor;
     }
 
@@ -131,9 +132,23 @@ public class DbHelper extends SQLiteOpenHelper {
         return id;
     }
 
-    public Cursor getAllOthersCost () {
+    public ArrayList<OtherCostHolder> getAllOthersCost() {
+        ArrayList<OtherCostHolder> costList = new ArrayList<>();
+
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.query(TBL_OTHERS_COST, null, null,null,null,null, "ORDER BY _ID DESC");
-        return cursor;
+        Cursor cursor = db.query(TBL_OTHERS_COST, null, null,null,null,null, "_ID DESC");
+        while (cursor.moveToNext()) {
+            int id = Integer.parseInt(cursor.getString(cursor.getColumnIndex("_ID")));
+            String purpose = cursor.getString(cursor.getColumnIndex("PURPOSE"));
+            int amount = Integer.parseInt(cursor.getString(cursor.getColumnIndex("AMOUNT")));
+            int date = Integer.parseInt(cursor.getString(cursor.getColumnIndex("DATE")));
+            int month = Integer.parseInt(cursor.getString(cursor.getColumnIndex("MONTH")));
+            int year = Integer.parseInt(cursor.getString(cursor.getColumnIndex("YEAR")));
+
+            costList.add(new OtherCostHolder(id,purpose,amount,date,month,year));
+        }
+
+        return costList;
     }
+
 }

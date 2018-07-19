@@ -30,7 +30,7 @@ public class OtherCostHolder {
     }
 
     public String getPurpose() {
-        return purpose;
+        return this.purpose;
     }
 
     public int getAmount() {
@@ -42,7 +42,7 @@ public class OtherCostHolder {
     }
 
     public int getMonth() {
-        return month;
+        return month+1;
     }
 
     public int getYear() {

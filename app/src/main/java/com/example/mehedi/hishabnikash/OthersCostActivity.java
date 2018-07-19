@@ -1,5 +1,6 @@
 package com.example.mehedi.hishabnikash;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -12,6 +13,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,11 +21,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class OthersCostActivity extends AppCompatActivity implements View.OnClickListener, DialogInterface.OnClickListener {
 
-    private ListView listView;
+    private ListView othersCostListView;
     private String[] months = {"january, 2018", "february,2018"};
     TextView purposeHeading, purposeAmount, purposeDate;
     Button btnAddCost;
@@ -37,13 +40,13 @@ public class OthersCostActivity extends AppCompatActivity implements View.OnClic
 
         init();
 
-        setListView();
+        setOtherCostList();
 
         setListener();
     }
 
     public void init() {
-        listView = findViewById(R.id.otherCostListView);
+        othersCostListView = findViewById(R.id.otherCostListView);
         purposeHeading = findViewById(R.id.otherCostDescHeading);
         purposeAmount = findViewById(R.id.otherCostAmountHeading);
         purposeDate = findViewById(R.id.otherCostDateHeading);
@@ -51,10 +54,12 @@ public class OthersCostActivity extends AppCompatActivity implements View.OnClic
         dbHelper = new DbHelper(this);
     }
 
-    public void setListView() {
-        Cursor cursor = dbHelper.getAllOthersCost();
-        OthersCostAdapter savingsAdapter = new OthersCostAdapter(this, cursor);
-        listView.setAdapter(savingsAdapter);
+    @SuppressLint("ShowToast")
+    public void setOtherCostList() {
+        ArrayList<OtherCostHolder> costList = dbHelper.getAllOthersCost();
+        OthersCostAdapter savingsAdapter = new OthersCostAdapter(this, costList);
+        othersCostListView.setAdapter(savingsAdapter);
+        savingsAdapter.notifyDataSetChanged();
     }
 
     public void setListener () {
@@ -97,7 +102,7 @@ public class OthersCostActivity extends AppCompatActivity implements View.OnClic
                 long id = dbHelper.addOtherCost(new OtherCostHolder(costPurpose, Integer.parseInt(costAmount)));
                 if (id > 0) {
                     Toast.makeText(this,"Your purpose and cost added to the list", Toast.LENGTH_LONG).show();
-                    setListView();
+                    setOtherCostList();
                 } else {
                     Toast.makeText(this,"Failed to add other cost", Toast.LENGTH_LONG).show();
                 }
@@ -110,18 +115,18 @@ public class OthersCostActivity extends AppCompatActivity implements View.OnClic
 
     class OthersCostAdapter extends BaseAdapter {
 
-        Cursor cursor;
+        ArrayList<OtherCostHolder> costHolder;
         LayoutInflater inflater;
         Context context;
 
-        OthersCostAdapter(Context context, Cursor cursor) {
+        OthersCostAdapter(Context context, ArrayList<OtherCostHolder> costHolder) {
             this.context = context;
-            this.cursor = cursor;
+            this.costHolder = costHolder;
         }
 
         @Override
         public int getCount() {
-            return cursor.getCount();
+            return costHolder.size();
         }
 
         @Override
@@ -141,14 +146,19 @@ public class OthersCostActivity extends AppCompatActivity implements View.OnClic
                 view = inflater.inflate(R.layout.others_cost_layout, viewGroup, false);
             }
 
-            while (cursor.moveToNext()) {
-                TextView textViewPurpose = view.findViewById(R.id.otherCostDesc);
-                TextView textViewAmount = view.findViewById(R.id.otherCostAmount);
-                TextView textViewDate = view.findViewById(R.id.otherCostDate);
 
-                textViewPurpose.setText(cursor.getString(cursor.getColumnIndex("PURPOSE")));
-                textViewAmount.setText(cursor.getString(cursor.getColumnIndex("AMOUNT")));
-            }
+            TextView textViewPurpose = view.findViewById(R.id.otherCostDesc);
+            TextView textViewAmount = view.findViewById(R.id.otherCostAmount);
+            TextView textViewDate = view.findViewById(R.id.otherCostDate);
+
+            OtherCostHolder otherCostHolder = costHolder.get(i);
+
+            String date = otherCostHolder.getDate()+ "-"+ otherCostHolder.getMonth()+ "-" + otherCostHolder.getYear();
+
+            textViewPurpose.setText(otherCostHolder.getPurpose());
+            textViewAmount.setText(otherCostHolder.getAmount()+" tk");
+            textViewDate.setText(date);
+
 
             return view;
         }
