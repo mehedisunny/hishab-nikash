@@ -6,11 +6,34 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".SavingsPlanActivity"
+    android:weightSum="5"
     android:background="#197242">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:text="Previous Savings Plan History"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textStyle="italic"
+        android:textSize="26sp"
+        android:textColor="#fff"
+        android:layout_weight="1"
+        android:layout_marginBottom="15dp"/>
+
+    <ListView
+        android:layout_weight="3"
+        android:id="@+id/listViewSavingsPlan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:dividerHeight="5dp"
+        android:layout_margin="10dp">
+
+    </ListView>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:orientation="horizontal"
         android:weightSum="4">
 
@@ -26,7 +49,6 @@
             android:layout_margin="10dp"
             android:textColor="#fff"
             android:textColorHint="#fff"
-            android:layout_marginBottom="25dp"
             android:hint="@string/saving_layout_month_input_hint"/>
 
 
@@ -47,23 +69,5 @@
             android:layout_marginRight="10dp" />
 
     </LinearLayout>
-    <TextView
-        android:layout_width="match_parent"
-        android:text="Previous Savings Plan History"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textStyle="italic"
-        android:textSize="26sp"
-        android:textColor="#fff"
-        android:layout_marginBottom="15dp"/>
-
-    <ListView
-        android:id="@+id/listViewSavingsPlan"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:dividerHeight="5dp"
-        android:layout_margin="10dp">
-
-    </ListView>
 
 </LinearLayout>

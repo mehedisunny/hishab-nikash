@@ -43,12 +43,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (view.getId() == R.id.btn_tongDokan) {
             // something to do
         } else if (view.getId() == R.id.btn_vehicleCost) {
-            // something to do
+
+            // redirecting to te vehicle cost activity
+            startActivity(new Intent(this, TravelActivity.class));
+
         } else if (view.getId() == R.id.btn_othersCost) {
+
+            // redirecting to te other cost activity
             startActivity(new Intent(this, OthersCostActivity.class));
+
         } else if (view.getId() == R.id.btn_savingsPlan) {
+
             // redirecting to te savings plan activity
             startActivity(new Intent(this, SavingsPlanActivity.class));
+
         }
 
     }
