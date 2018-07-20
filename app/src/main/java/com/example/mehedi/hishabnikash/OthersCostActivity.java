@@ -101,13 +101,22 @@ public class OthersCostActivity extends AppCompatActivity implements View.OnClic
 
             String costPurpose = purpose.getText().toString();
             String costAmount = amount.getText().toString();
+            Cursor dbCursor = dbHelper.checkSavingsPlan(month, year);
+
+            int convertedAmount = Integer.parseInt(costAmount);
 
             if (costPurpose.equals("") || costAmount.equals("")) {
                 Toast.makeText(this,"Please enter purpose of cost and amount", Toast.LENGTH_LONG).show();
             } else {
                 DbHelper dbHelper = new DbHelper(this);
-                long id = dbHelper.addOtherCost(new OtherCostHolder(costPurpose, Integer.parseInt(costAmount)));
+                long id = dbHelper.addOtherCost(new OtherCostHolder(costPurpose, convertedAmount));
                 if (id > 0) {
+                    if (dbCursor.getCount() > 0) {
+                        dbCursor.moveToFirst();
+                        int existingAmount = Integer.parseInt(dbCursor.getString(dbCursor.getColumnIndex("ACTUAL_AMOUNT")));
+                        convertedAmount += existingAmount;
+                        dbHelper.updateSavingsPlanExpense(convertedAmount, month, year);
+                    }
                     Toast.makeText(this,"Your purpose and cost added to the list", Toast.LENGTH_LONG).show();
                     setOtherCostList();
                 } else {

@@ -147,6 +147,19 @@ public class DbHelper extends SQLiteOpenHelper {
     }
 
     /*
+     * this method is responsible for updating existing entry for the current month expense
+     * @param SavingsPlanHolder object
+     * @return void (just updating an existing row)
+     * */
+    public void updateSavingsPlanExpense (int amount, int month, int year) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("ACTUAL_AMOUNT", amount);
+
+        db.update(TBL_SAVINGS_PLAN, contentValues, "MONTH = ? AND YEAR = ?", new String[] {month+"", year+""});
+    }
+
+    /*
     * this method is responsible for storing other cost in the database
     * @param OtherCostHolder object
     * @return long (the last inserted id)
