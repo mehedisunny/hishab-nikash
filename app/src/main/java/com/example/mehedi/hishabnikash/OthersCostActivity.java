@@ -27,7 +27,6 @@ import java.util.Calendar;
 public class OthersCostActivity extends AppCompatActivity implements View.OnClickListener, DialogInterface.OnClickListener {
 
     private ListView othersCostListView;
-    private String[] months = {"january, 2018", "february,2018"};
     TextView purposeHeading, purposeAmount, purposeDate;
     Button btnAddCost;
     View dialogView;
@@ -43,7 +42,7 @@ public class OthersCostActivity extends AppCompatActivity implements View.OnClic
 
         calendar = Calendar.getInstance();
         year = calendar.get(Calendar.YEAR);
-        month = calendar.get(Calendar.MONTH);
+        this.month = calendar.get(Calendar.MONTH) + 1;
 
         init();
 
@@ -61,12 +60,10 @@ public class OthersCostActivity extends AppCompatActivity implements View.OnClic
         dbHelper = new DbHelper(this);
     }
 
-    @SuppressLint("ShowToast")
     public void setOtherCostList() {
-        ArrayList<OtherCostHolder> costList = dbHelper.getAllOthersCost(month+1, year);
+        ArrayList<OtherCostHolder> costList = dbHelper.getAllOthersCost(month, year);
         OthersCostAdapter savingsAdapter = new OthersCostAdapter(this, costList);
         othersCostListView.setAdapter(savingsAdapter);
-        savingsAdapter.notifyDataSetChanged();
     }
 
     public void setListener () {
@@ -103,7 +100,10 @@ public class OthersCostActivity extends AppCompatActivity implements View.OnClic
             String costAmount = amount.getText().toString();
             Cursor dbCursor = dbHelper.checkSavingsPlan(month, year);
 
-            int convertedAmount = Integer.parseInt(costAmount);
+            int convertedAmount = 0;
+           if (!costAmount.equals("")) {
+               convertedAmount = Integer.parseInt(costAmount);
+           }
 
             if (costPurpose.equals("") || costAmount.equals("")) {
                 Toast.makeText(this,"Please enter purpose of cost and amount", Toast.LENGTH_LONG).show();
@@ -142,7 +142,7 @@ public class OthersCostActivity extends AppCompatActivity implements View.OnClic
 
         @Override
         public int getCount() {
-            return costHolder.size();
+            return this.costHolder.size();
         }
 
         @Override
@@ -174,7 +174,6 @@ public class OthersCostActivity extends AppCompatActivity implements View.OnClic
             textViewPurpose.setText(otherCostHolder.getPurpose());
             textViewAmount.setText(otherCostHolder.getAmount()+" tk");
             textViewDate.setText(date);
-
 
             return view;
         }

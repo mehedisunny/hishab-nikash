@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:context=".SavingsPlanActivity"
     android:weightSum="10"
-    android:background="#197242">
+    android:background="#393293">
 
     <TextView
         android:layout_width="match_parent"

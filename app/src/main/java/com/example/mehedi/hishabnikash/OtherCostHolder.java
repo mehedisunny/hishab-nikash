@@ -11,11 +11,11 @@ public class OtherCostHolder {
     private int year;
     Calendar calendar;
 
-    public OtherCostHolder (int id, String purpose, int date, int month, int year) {
+    public OtherCostHolder (int id, String purpose) {
         this.purpose = purpose;
         calendar = Calendar.getInstance();
         this.date = calendar.get(Calendar.DATE);
-        this.month = calendar.get(Calendar.MONTH);
+        this.month = calendar.get(Calendar.MONTH) + 1;
         this.year = calendar.get(Calendar.YEAR);
     }
 
@@ -24,7 +24,7 @@ public class OtherCostHolder {
         this.amount = amount;
         calendar = Calendar.getInstance();
         this.date = calendar.get(Calendar.DATE);
-        this.month = calendar.get(Calendar.MONTH);
+        this.month = calendar.get(Calendar.MONTH) + 1;
         this.year = calendar.get(Calendar.YEAR);
     }
 
@@ -32,9 +32,9 @@ public class OtherCostHolder {
         this.purpose = purpose;
         this.amount = amount;
         calendar = Calendar.getInstance();
-        this.date = calendar.get(Calendar.DATE);
-        this.month = calendar.get(Calendar.MONTH);
-        this.year = calendar.get(Calendar.YEAR);
+        this.date = date;
+        this.month = month;
+        this.year = year;
     }
 
     public String getPurpose() {
@@ -50,7 +50,7 @@ public class OtherCostHolder {
     }
 
     public int getMonth() {
-        return month+1;
+        return month;
     }
 
     public int getYear() {

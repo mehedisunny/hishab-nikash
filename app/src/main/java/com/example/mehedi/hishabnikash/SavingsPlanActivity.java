@@ -37,7 +37,7 @@ public class SavingsPlanActivity extends AppCompatActivity implements View.OnCli
 
         calendar = Calendar.getInstance();
         year = calendar.get(Calendar.YEAR);
-        month = calendar.get(Calendar.MONTH);
+        month = calendar.get(Calendar.MONTH)+1;
 
         // initializing components of the activity
         init();
@@ -84,8 +84,8 @@ public class SavingsPlanActivity extends AppCompatActivity implements View.OnCli
                 Cursor cursor = dbHelper.checkSavingsPlan(month, year);
                 if (cursor.getCount() > 0) {
                     dbHelper.updateSavingsPlan(new SavingsPlanHolder(targetAmount, month, year));
-                    clearFields();
                     setListView();
+                    clearFields();
                     Toast.makeText(this,"Target amount for this month is updated",Toast.LENGTH_SHORT).show();
                 } else {
                     long id = dbHelper.addSavingsPlan(new SavingsPlanHolder(targetAmount,0,month,year));
@@ -151,7 +151,7 @@ public class SavingsPlanActivity extends AppCompatActivity implements View.OnCli
                     textViewResult.setText("Result: \n"+result+" over");
                     textViewResult.setTextColor(getResources().getColor(R.color.colorError,null));
                 } else {
-                    textViewResult.setText("Result: \n"+result+" less");
+                    textViewResult.setText("Result: \n"+result+" left");
                     textViewResult.setTextColor(getResources().getColor(R.color.colorSuccess,null));
                 }
 

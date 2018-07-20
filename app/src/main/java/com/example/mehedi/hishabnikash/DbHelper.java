@@ -11,18 +11,13 @@ import java.util.Date;
 
 public class DbHelper extends SQLiteOpenHelper {
 
-    private static final int DB_VERSION = 1;
+    private static final int DB_VERSION = 3;
     private static final String DB_NAME = "hishabNikash";
 
     private static final String TBL_SAVINGS_PLAN = "savings_plan";
     private static final String TBL_OTHERS_COST = "others_cost";
     private static final String TBL_TONG_DOKAN = "tong_dokan";
     private static final String TBL_VEHICLE_COST = "vehicle_cost";
-
-    private static final String ID_SAVINGS_PLAN = "_id";
-    private static final String ID_OTHERS_COST  = "_id";
-    private static final String ID_TONG_DOKAN   = "_id";
-    private static final String ID_VEHICLE_COST = "_id";
 
 
     // query for table savings plan
@@ -220,6 +215,31 @@ public class DbHelper extends SQLiteOpenHelper {
 
         long id = db.insert(TBL_VEHICLE_COST, null, contentValues);
         return id;
+    }
+
+    /*
+     * this method is responsible for fetching all the results for the current month
+     * @param currentMonth(int), currentYear(int)
+     * @return ArrayList<OtherCostHolder> object (cost list);
+     * */
+    public ArrayList<TravelHistoryModel> getTravelCostList (int currentMonth, int currentYear) {
+        ArrayList<TravelHistoryModel> travelCostList = new ArrayList<>();
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.query(TBL_VEHICLE_COST, null, "MONTH = ? AND YEAR = ?",new String[] {currentMonth+"", currentYear+""},null,null, "_ID DESC");
+        while (cursor.moveToNext()) {
+            int id = Integer.parseInt(cursor.getString(cursor.getColumnIndex("_ID")));
+            String source = cursor.getString(cursor.getColumnIndex("START_POINT"));
+            String destination = cursor.getString(cursor.getColumnIndex("DESTINATION"));
+            String vehicle = cursor.getString(cursor.getColumnIndex("VEHICLE_TYPE"));
+            int amount = Integer.parseInt(cursor.getString(cursor.getColumnIndex("AMOUNT")));
+            int month = Integer.parseInt(cursor.getString(cursor.getColumnIndex("MONTH")));
+            int year = Integer.parseInt(cursor.getString(cursor.getColumnIndex("YEAR")));
+
+            travelCostList.add(new TravelHistoryModel(id,source, destination, vehicle, amount));
+        }
+
+        return travelCostList;
     }
 
 }

@@ -21,7 +21,7 @@ public class TravelHistoryModel {
         this._amount = amount;
         calendar = Calendar.getInstance();
         date = calendar.get(Calendar.DATE);
-        month = calendar.get(Calendar.MONTH);
+        month = calendar.get(Calendar.MONTH)+1;
         year = calendar.get(Calendar.YEAR);
     }
 
@@ -33,7 +33,7 @@ public class TravelHistoryModel {
         this._amount = amount;
         calendar = Calendar.getInstance();
         date = calendar.get(Calendar.DATE);
-        month = calendar.get(Calendar.MONTH);
+        month = calendar.get(Calendar.MONTH)+1;
         year = calendar.get(Calendar.YEAR);
     }
 
