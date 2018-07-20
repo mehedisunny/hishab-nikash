@@ -32,11 +32,18 @@ public class OthersCostActivity extends AppCompatActivity implements View.OnClic
     Button btnAddCost;
     View dialogView;
     DbHelper dbHelper;
+    Calendar calendar;
+    int year;
+    int month;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_others_cost);
+
+        calendar = Calendar.getInstance();
+        year = calendar.get(Calendar.YEAR);
+        month = calendar.get(Calendar.MONTH);
 
         init();
 
@@ -56,7 +63,7 @@ public class OthersCostActivity extends AppCompatActivity implements View.OnClic
 
     @SuppressLint("ShowToast")
     public void setOtherCostList() {
-        ArrayList<OtherCostHolder> costList = dbHelper.getAllOthersCost();
+        ArrayList<OtherCostHolder> costList = dbHelper.getAllOthersCost(month+1, year);
         OthersCostAdapter savingsAdapter = new OthersCostAdapter(this, costList);
         othersCostListView.setAdapter(savingsAdapter);
         savingsAdapter.notifyDataSetChanged();

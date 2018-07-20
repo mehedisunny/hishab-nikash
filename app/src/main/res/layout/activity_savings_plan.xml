@@ -6,13 +6,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".SavingsPlanActivity"
-    android:weightSum="5"
+    android:weightSum="10"
     android:background="#197242">
 
     <TextView
         android:layout_width="match_parent"
         android:text="Previous Savings Plan History"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:gravity="center"
         android:textStyle="italic"
         android:textSize="26sp"
@@ -21,10 +21,10 @@
         android:layout_marginBottom="15dp"/>
 
     <ListView
-        android:layout_weight="3"
+        android:layout_weight="8"
         android:id="@+id/listViewSavingsPlan"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:dividerHeight="5dp"
         android:layout_margin="10dp">
 
@@ -32,7 +32,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_weight="1"
         android:orientation="horizontal"
         android:weightSum="4">
@@ -41,12 +41,11 @@
             android:id="@+id/et_monthlyBudget"
             android:layout_width="0dp"
             android:layout_weight="3"
-            android:layout_height="40dp"
+            android:layout_height="match_parent"
             android:padding="10dp"
             android:textSize="16sp"
             android:singleLine="true"
             android:inputType="number"
-            android:layout_margin="10dp"
             android:textColor="#fff"
             android:textColorHint="#fff"
             android:hint="@string/saving_layout_month_input_hint"/>
@@ -57,16 +56,14 @@
             android:layout_width="0dp"
             android:textSize="16sp"
             android:layout_weight="1"
-            android:layout_height="40dp"
+            android:layout_height="match_parent"
             android:textAllCaps="false"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="10dp"
             android:textColor="@color/colorPrimary"
             android:text="Add"
-            android:padding="10dp"
+            android:padding="15dp"
             android:drawableRight="@android:drawable/ic_input_add"
             android:background="#fff"
-            android:layout_marginRight="10dp" />
+            />
 
     </LinearLayout>
 
