@@ -201,4 +201,25 @@ public class DbHelper extends SQLiteOpenHelper {
         return costList;
     }
 
+    /*
+    * this method is for adding travel history
+    * @param TravelHistoryModel object
+    * @return long (id of last inserted id)
+    * */
+    public long addTravelHistory (TravelHistoryModel travelHistoryModel) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("START_POINT", travelHistoryModel.getSourcePlace());
+        contentValues.put("DESTINATION", travelHistoryModel.getDestinationPlace());
+        contentValues.put("VEHICLE_TYPE", travelHistoryModel.getVehicleType());
+        contentValues.put("AMOUNT", travelHistoryModel.getAmount());
+        contentValues.put("DATE", travelHistoryModel.getDate());
+        contentValues.put("MONTH", travelHistoryModel.getMonth());
+        contentValues.put("YEAR", travelHistoryModel.getYear());
+
+        long id = db.insert(TBL_VEHICLE_COST, null, contentValues);
+        return id;
+    }
+
 }

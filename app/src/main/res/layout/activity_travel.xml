@@ -5,11 +5,95 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".TravelActivity">
+    tools:context=".TravelActivity"
+    android:background="#197242">
 
     <TextView
-        android:id="@+id/travel"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="0dp"
+        android:text="Travel Cost Details"
+        android:textColor="#fff"
+        android:gravity="center"
+        android:textSize="24sp"
+        android:layout_weight="1"
+        android:padding="15dp"/>
+
+    <LinearLayout
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        android:background="#fff"
+        android:weightSum="10"
+        android:padding="5dp">
+
+        <TextView
+            android:id="@+id/travelCostFrom"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="From"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_margin="5dp"/>
+
+        <TextView
+            android:id="@+id/travelCostDestination"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="TO"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_margin="5dp"/>
+
+        <TextView
+            android:id="@+id/travelCostVehicleType"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="Vehicle"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_margin="5dp"/>
+
+        <TextView
+            android:id="@+id/travelCostAmount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="Amount"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_margin="5dp"
+            />
+        <TextView
+            android:id="@+id/travelCostDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="Date"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_margin="5dp"
+            />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/travelListView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="#e8eff2"
+        android:layout_weight="7"
+        >
+
+    </ListView>
+
+    <Button
+        android:id="@+id/travelCostAdd"
+        android:layout_width="match_parent"
+        android:text="Add a travel history"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
 
 </LinearLayout>

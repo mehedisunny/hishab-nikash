@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_margin="50dp">
+
+    <EditText
+        android:id="@+id/et_travelCostFrom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter your source"
+        android:layout_margin="15dp"/>
+
+    <EditText
+        android:id="@+id/et_travelCostTo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter your destination"
+        android:layout_margin="15dp"/>
+
+    <EditText
+        android:id="@+id/et_travelCostVehicle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter which vehicle you used"
+        android:layout_margin="15dp"/>
+
+    <EditText
+        android:id="@+id/et_travelCostAmount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter travel amount"
+        android:inputType="number"
+        android:layout_margin="15dp"/>
+
+
+</LinearLayout>
