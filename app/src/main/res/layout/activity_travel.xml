@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".TravelActivity"
-    android:background="#197242">
+    android:background="@drawable/travel_btn">
 
     <TextView
         android:layout_width="match_parent"
@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:text="From"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:textStyle="bold"
             android:layout_margin="5dp"/>
 
@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:text="TO"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:textStyle="bold"
             android:layout_margin="5dp"/>
 
@@ -53,7 +53,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:text="Vehicle"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:textStyle="bold"
             android:layout_margin="5dp"/>
 
@@ -63,7 +63,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:text="Amount"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:textStyle="bold"
             android:layout_margin="5dp"
             />
@@ -73,7 +73,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:text="Date"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:textStyle="bold"
             android:layout_margin="5dp"
             />
@@ -94,6 +94,8 @@
         android:layout_width="match_parent"
         android:text="Add a travel history"
         android:layout_height="0dp"
+        android:textColor="#fff"
+        android:background="@drawable/travel_btn"
         android:layout_weight="1"/>
 
 </LinearLayout>

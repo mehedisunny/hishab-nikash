@@ -220,7 +220,7 @@ public class DbHelper extends SQLiteOpenHelper {
     /*
      * this method is responsible for fetching all the results for the current month
      * @param currentMonth(int), currentYear(int)
-     * @return ArrayList<OtherCostHolder> object (cost list);
+     * @return ArrayList<TravelHistoryModel> object (cost list);
      * */
     public ArrayList<TravelHistoryModel> getTravelCostList (int currentMonth, int currentYear) {
         ArrayList<TravelHistoryModel> travelCostList = new ArrayList<>();
