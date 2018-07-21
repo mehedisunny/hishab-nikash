@@ -13,4 +13,11 @@
         show you an overview in the saving plan section that how much your expense is and did you fail
         to maintain your budget or not. Cheers !!!
     </string>
+    <string name="logo_credit_title">
+        Logo and Design
+    </string>
+    <string name="logo_credit">
+        Redwan Rahat \n
+        Arifur Rahman
+    </string>
 </resources>
