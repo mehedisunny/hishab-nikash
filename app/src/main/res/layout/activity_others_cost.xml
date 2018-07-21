@@ -12,7 +12,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:text="Others cost details"
+        android:text="Daily Expense details"
         android:textColor="#fff"
         android:gravity="center"
         android:textSize="24sp"
@@ -73,7 +73,7 @@
     <Button
         android:id="@+id/otherCostAddAmount"
         android:layout_width="match_parent"
-        android:text="Add an other cost"
+        android:text="Add an Expense"
         android:layout_height="0dp"
         android:textColor="#fff"
         android:background="@drawable/travel_btn"

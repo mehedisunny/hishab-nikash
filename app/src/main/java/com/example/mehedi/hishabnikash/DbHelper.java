@@ -197,6 +197,29 @@ public class DbHelper extends SQLiteOpenHelper {
     }
 
     /*
+     * this method is responsible for fetching all the results for the current month
+     * @param currentMonth(int), currentYear(int)
+     * @return ArrayList<OtherCostHolder> object (cost list);
+     * */
+    public ArrayList<OtherCostHolder> getSingleCostInfo (long dbId) {
+        ArrayList<OtherCostHolder> costList = new ArrayList<>();
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.query(TBL_OTHERS_COST, null, "_ID = ? ",new String[] {dbId+""},null,null, null);
+        cursor.moveToFirst();
+        int id = Integer.parseInt(cursor.getString(cursor.getColumnIndex("_ID")));
+        String purpose = cursor.getString(cursor.getColumnIndex("PURPOSE"));
+        int amount = Integer.parseInt(cursor.getString(cursor.getColumnIndex("AMOUNT")));
+        int date = Integer.parseInt(cursor.getString(cursor.getColumnIndex("DATE")));
+        int month = Integer.parseInt(cursor.getString(cursor.getColumnIndex("MONTH")));
+        int year = Integer.parseInt(cursor.getString(cursor.getColumnIndex("YEAR")));
+
+        costList.add(new OtherCostHolder(id,purpose,amount,date,month,year));
+
+        return costList;
+    }
+
+    /*
     * this method is for adding travel history
     * @param TravelHistoryModel object
     * @return long (id of last inserted id)

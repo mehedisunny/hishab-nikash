@@ -106,7 +106,7 @@ public class TravelActivity extends AppCompatActivity implements View.OnClickLis
             builder.setView(travelDialogView);
             builder.setTitle("Add Travel History");
             builder.setPositiveButton("Add", (DialogInterface.OnClickListener) this);
-            builder.setNegativeButton("No", (DialogInterface.OnClickListener) this);
+            builder.setNegativeButton("Cancel", (DialogInterface.OnClickListener) this);
 
             AlertDialog dialog = builder.create();
             dialog.show();

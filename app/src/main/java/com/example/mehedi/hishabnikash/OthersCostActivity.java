@@ -12,12 +12,14 @@ import android.support.annotation.RequiresApi;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
@@ -74,11 +76,55 @@ public class OthersCostActivity extends AppCompatActivity implements View.OnClic
         ArrayList<OtherCostHolder> costList = dbHelper.getAllOthersCost(month, year);
         OthersCostAdapter savingsAdapter = new OthersCostAdapter(this, costList);
         othersCostListView.setAdapter(savingsAdapter);
+        othersCostListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(OthersCostActivity.this);
+                LayoutInflater inflater = getLayoutInflater();
+                view = inflater.inflate(R.layout.other_cost_dialog, null);
+
+                ArrayList<OtherCostHolder> singleData = new ArrayList<>();
+                singleData = dbHelper.getSingleCostInfo(l);
+
+                EditText editTextPurpose = view.findViewById(R.id.et_otherCostPurpose);
+                EditText editTextAmount = view.findViewById(R.id.et_otherCostAmount);
+                editTextPurpose.setText(singleData.get(0).getPurpose());
+                editTextAmount.setText(singleData.get(0).getAmount()+"");
+                builder.setView(view);
+
+                builder.setPositiveButton("Update", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Toast.makeText(OthersCostActivity.this, "Updation code will be here", Toast.LENGTH_LONG).show();
+                    }
+                });
+
+                builder.setNegativeButton("Delete", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Toast.makeText(OthersCostActivity.this, "Deletion code will be here", Toast.LENGTH_LONG).show();
+                    }
+                });
+
+                builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.cancel();
+                    }
+                });
+
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
+
+            }
+        });
     }
 
     public void setListener () {
         btnAddCost.setOnClickListener(this);
     }
+
+
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -93,7 +139,7 @@ public class OthersCostActivity extends AppCompatActivity implements View.OnClic
 
             builder.setTitle("Add Other Cost");
             builder.setPositiveButton("Add", (DialogInterface.OnClickListener) this);
-            builder.setNegativeButton("No", (DialogInterface.OnClickListener) this);
+            builder.setNegativeButton("Cancel", (DialogInterface.OnClickListener) this);
 
             AlertDialog alertDialog = builder.create();
             alertDialog.show();
@@ -162,7 +208,7 @@ public class OthersCostActivity extends AppCompatActivity implements View.OnClic
 
         @Override
         public long getItemId(int i) {
-            return 0;
+            return costHolder.get(i).getId();
         }
 
         @Override
@@ -188,6 +234,9 @@ public class OthersCostActivity extends AppCompatActivity implements View.OnClic
             return view;
         }
     }
+
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
