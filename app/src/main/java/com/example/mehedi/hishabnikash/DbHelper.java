@@ -11,7 +11,7 @@ import java.util.Date;
 
 public class DbHelper extends SQLiteOpenHelper {
 
-    private static final int DB_VERSION = 3;
+    private static final int DB_VERSION = 4;
     private static final String DB_NAME = "hishabNikash";
 
     private static final String TBL_SAVINGS_PLAN = "savings_plan";

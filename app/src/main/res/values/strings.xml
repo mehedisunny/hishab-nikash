@@ -1,10 +1,16 @@
 <resources>
     <string name="app_name">HishabNikash</string>
-    <string name="tong_dokan">Tong Dokaner Hishab</string>
-    <string name="vehicle_cost">Janbahon Khoroch</string>
-    <string name="others_cost">Others Bill</string>
+    <string name="vehicle_cost">Travel Cost</string>
+    <string name="others_cost">Daily Expenses</string>
     <string name="savings_bill">Savings Plan</string>
     <string name="saving_layout_heading">Savings Plan</string>
     <string name="saving_layout_month">July, 2018</string>
     <string name="saving_layout_month_input_hint">Please enter your target amount</string>
+    <string name="about_app">
+        This app is basically for those who wants to keep track of their daily cost. Someone who is
+        very bad at maintaining budget, this app is to give him a option to look on the fields where
+        he spends his money. It will allow to input the daily expenses for the current month and will
+        show you an overview in the saving plan section that how much your expense is and did you fail
+        to maintain your budget or not. Cheers !!!
+    </string>
 </resources>

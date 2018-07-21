@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/set_cig"
-        android:title="Set Cigarete price">
-    </item>
     <item android:id="@+id/about"
-        android:title="About Us">
+        android:title="About App">
     </item>
     <item android:id="@+id/credits"
         android:title="Credits">
