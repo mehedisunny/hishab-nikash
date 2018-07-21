@@ -18,7 +18,11 @@
         </activity>
         <activity android:name=".SavingsPlanActivity" />
         <activity android:name=".OthersCostActivity" />
-        <activity android:name=".TravelActivity"></activity>
+        <activity android:name=".TravelActivity" />
+        <activity android:name=".TongDokanActivity" />
+        <activity android:name=".CreditsActivity" />
+        <activity android:name=".SetCigActivity" />
+        <activity android:name=".AboutActivity"></activity>
     </application>
 
 </manifest>

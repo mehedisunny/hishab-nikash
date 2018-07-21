@@ -46,7 +46,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
 
         if (view.getId() == R.id.btn_tongDokan) {
-            // something to do
+
+            // redirecting to te tong dokan activity
+            startActivity(new Intent(this, TongDokanActivity.class));
+
         } else if (view.getId() == R.id.btn_vehicleCost) {
 
             // redirecting to te vehicle cost activity
