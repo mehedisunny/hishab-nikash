@@ -33,10 +33,19 @@ public class CreditsActivity extends AppCompatActivity {
 
         if (item.getItemId() == android.R.id.home) {
             startActivity(new Intent(this, MainActivity.class));
+            finish();
         } else if (item.getItemId() == R.id.about) {
             startActivity(new Intent(this, AboutActivity.class));
+            finish();
         } else if (item.getItemId() == R.id.credits) {
             startActivity(new Intent(this, CreditsActivity.class));
+            finish();
+        } else if (item.getItemId() == R.id.set_pin) {
+            startActivity(new Intent(this, PinCodeActivity.class));
+            finish();
+        } else if (item.getItemId() == R.id.change_pin) {
+            startActivity(new Intent(this, ChangePinActivity.class));
+            finish();
         }
 
 

@@ -101,49 +101,70 @@ public class OthersCostActivity extends AppCompatActivity implements View.OnClic
                 builder.setPositiveButton("Update", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        final String purpose = editTextPurpose.getText().toString();
-                        int amount  = Integer.parseInt(editTextAmount.getText().toString());
-                        dbHelper.updateOthersCost(new OtherCostHolder(purpose, amount), l);
-                        if (dbCursor.getCount() > 0) {
-                            int finalAmount = 0;
-                            int updatedAmount = 0;
-                            dbCursor.moveToFirst();
-                            int existingAmount = Integer.parseInt(dbCursor.getString(dbCursor.getColumnIndex("ACTUAL_AMOUNT")));
-                            if (currentBalance < amount) {
-                                updatedAmount = amount - currentBalance;
-                                finalAmount = existingAmount + updatedAmount;
-                            } else {
-                                updatedAmount = currentBalance - amount;
-                                finalAmount = existingAmount - updatedAmount;
-                            }
+                        final String purpose = editTextPurpose.getText().toString().trim();
+                        int amount  = Integer.parseInt(editTextAmount.getText().toString().trim());
+                        if (purpose.isEmpty() || amount == 0) {
+                            Toast.makeText(OthersCostActivity.this, "Please make sure you entered all the fields", Toast.LENGTH_LONG).show();
+                        } else {
+                            dbHelper.updateOthersCost(new OtherCostHolder(purpose, amount), l);
+                            if (dbCursor.getCount() > 0) {
+                                int finalAmount = 0;
+                                int updatedAmount = 0;
+                                dbCursor.moveToFirst();
+                                int existingAmount = Integer.parseInt(dbCursor.getString(dbCursor.getColumnIndex("ACTUAL_AMOUNT")));
+                                if (currentBalance < amount) {
+                                    updatedAmount = amount - currentBalance;
+                                    finalAmount = existingAmount + updatedAmount;
+                                } else {
+                                    updatedAmount = currentBalance - amount;
+                                    finalAmount = existingAmount - updatedAmount;
+                                }
 
-                            if (finalAmount <= 0) {
-                                finalAmount = 0;
-                            }
+                                if (finalAmount <= 0) {
+                                    finalAmount = 0;
+                                }
 
-                            dbHelper.updateSavingsPlanExpense(finalAmount, month, year);
+                                dbHelper.updateSavingsPlanExpense(finalAmount, month, year);
+                            }
+                            Toast.makeText(OthersCostActivity.this, "Daily cost updated", Toast.LENGTH_LONG).show();
+                            setOtherCostList();
                         }
-                        Toast.makeText(OthersCostActivity.this, "Daily cost updated", Toast.LENGTH_LONG).show();
-                        setOtherCostList();
                     }
                 });
 
                 builder.setNegativeButton("Delete", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        dbHelper.deleteOtherCost(l);
-                        if (dbCursor.getCount() > 0) {
-                            dbCursor.moveToFirst();
-                            int amount  = Integer.parseInt(editTextAmount.getText().toString());
-                            int existingAmount = Integer.parseInt(dbCursor.getString(dbCursor.getColumnIndex("ACTUAL_AMOUNT")));
-                            amount -= existingAmount;
-                            if (amount < 0) {
-                                amount = 0;
+                        AlertDialog.Builder builder = new AlertDialog.Builder(OthersCostActivity.this);
+                        builder.setTitle("Are you sure to delete ?");
+                        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dbHelper.deleteOtherCost(l);
+                                if (dbCursor.getCount() > 0) {
+                                    dbCursor.moveToFirst();
+                                    int amount  = Integer.parseInt(editTextAmount.getText().toString());
+                                    int existingAmount = Integer.parseInt(dbCursor.getString(dbCursor.getColumnIndex("ACTUAL_AMOUNT")));
+                                    amount -= existingAmount;
+                                    if (amount < 0) {
+                                        amount = 0;
+                                    }
+                                    dbHelper.updateSavingsPlanExpense(amount, month, year);
+                                }
+                                Toast.makeText(OthersCostActivity.this, "Daily cost deleted", Toast.LENGTH_LONG).show();
+                                setOtherCostList();
                             }
-                            dbHelper.updateSavingsPlanExpense(amount, month, year);
-                        }
-                        Toast.makeText(OthersCostActivity.this, "Daily cost deleted", Toast.LENGTH_LONG).show();
-                        setOtherCostList();
+                        });
+                        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.cancel();
+                            }
+                        });
+
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
+
                     }
                 });
 
@@ -193,8 +214,8 @@ public class OthersCostActivity extends AppCompatActivity implements View.OnClic
             EditText purpose = dialogView.findViewById(R.id.et_otherCostPurpose);
             EditText amount = dialogView.findViewById(R.id.et_otherCostAmount);
 
-            String costPurpose = purpose.getText().toString();
-            String costAmount = amount.getText().toString();
+            String costPurpose = purpose.getText().toString().trim();
+            String costAmount = amount.getText().toString().trim();
             Cursor dbCursor = dbHelper.checkSavingsPlan(month, year);
 
             int convertedAmount = 0;
@@ -202,7 +223,7 @@ public class OthersCostActivity extends AppCompatActivity implements View.OnClic
                convertedAmount = Integer.parseInt(costAmount);
            }
 
-            if (costPurpose.equals("") || costAmount.equals("")) {
+            if (costPurpose.isEmpty() || costAmount.isEmpty()) {
                 Toast.makeText(this,"Please enter purpose of cost and amount", Toast.LENGTH_LONG).show();
             } else {
                 DbHelper dbHelper = new DbHelper(this);
@@ -291,10 +312,19 @@ public class OthersCostActivity extends AppCompatActivity implements View.OnClic
 
         if (item.getItemId() == android.R.id.home) {
             startActivity(new Intent(this, MainActivity.class));
+            finish();
         } else if (item.getItemId() == R.id.about) {
             startActivity(new Intent(this, AboutActivity.class));
+            finish();
         } else if (item.getItemId() == R.id.credits) {
             startActivity(new Intent(this, CreditsActivity.class));
+            finish();
+        } else if (item.getItemId() == R.id.set_pin) {
+            startActivity(new Intent(this, PinCodeActivity.class));
+            finish();
+        } else if (item.getItemId() == R.id.change_pin) {
+            startActivity(new Intent(this, ChangePinActivity.class));
+            finish();
         }
 
 

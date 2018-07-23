@@ -116,51 +116,73 @@ public class TravelActivity extends AppCompatActivity implements View.OnClickLis
                 builder.setPositiveButton("Update", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        final String source = editTextSource.getText().toString();
-                        final String destination = editTextDestination.getText().toString();
-                        final String vehicle = editTextVehicleType.getText().toString();
-                        int amount  = Integer.parseInt(editTextAmount.getText().toString());
-                        dbHelper.updateTravelHistory(new TravelHistoryModel(source, destination, vehicle, amount), l);
-                        if (dbCursor.getCount() > 0) {
-                            int finalAmount = 0;
-                            int updatedAmount = 0;
-                            dbCursor.moveToFirst();
-                            int existingAmount = Integer.parseInt(dbCursor.getString(dbCursor.getColumnIndex("ACTUAL_AMOUNT")));
-                            if (currentBalance < amount) {
-                                updatedAmount = amount - currentBalance;
-                                finalAmount = existingAmount + updatedAmount;
-                            } else {
-                                updatedAmount = currentBalance - amount;
-                                finalAmount = existingAmount - updatedAmount;
-                            }
+                        final String source = editTextSource.getText().toString().trim();
+                        final String destination = editTextDestination.getText().toString().trim();
+                        final String vehicle = editTextVehicleType.getText().toString().trim();
+                        int amount  = Integer.parseInt(editTextAmount.getText().toString().trim());
+                        if (source.isEmpty() || destination.isEmpty() || vehicle.isEmpty() || amount == 0) {
+                            Toast.makeText(TravelActivity.this, "Make sure you filled up all the fields", Toast.LENGTH_LONG).show();
+                        } else {
+                            dbHelper.updateTravelHistory(new TravelHistoryModel(source, destination, vehicle, amount), l);
+                            if (dbCursor.getCount() > 0) {
+                                int finalAmount = 0;
+                                int updatedAmount = 0;
+                                dbCursor.moveToFirst();
+                                int existingAmount = Integer.parseInt(dbCursor.getString(dbCursor.getColumnIndex("ACTUAL_AMOUNT")));
+                                if (currentBalance < amount) {
+                                    updatedAmount = amount - currentBalance;
+                                    finalAmount = existingAmount + updatedAmount;
+                                } else {
+                                    updatedAmount = currentBalance - amount;
+                                    finalAmount = existingAmount - updatedAmount;
+                                }
 
-                            if (finalAmount <= 0) {
-                                finalAmount = 0;
-                            }
+                                if (finalAmount <= 0) {
+                                    finalAmount = 0;
+                                }
 
-                            dbHelper.updateSavingsPlanExpense(finalAmount, month, year);
+                                dbHelper.updateSavingsPlanExpense(finalAmount, month, year);
+                            }
+                            Toast.makeText(TravelActivity.this, "Travel cost updated", Toast.LENGTH_LONG).show();
+                            travelHistory();
+
                         }
-                        Toast.makeText(TravelActivity.this, "Travel cost updated", Toast.LENGTH_LONG).show();
-                        travelHistory();
                     }
                 });
 
                 builder.setNegativeButton("Delete", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        dbHelper.deleteTravelHistory(l);
-                        if (dbCursor.getCount() > 0) {
-                            dbCursor.moveToFirst();
-                            int amount  = Integer.parseInt(editTextAmount.getText().toString());
-                            int existingAmount = Integer.parseInt(dbCursor.getString(dbCursor.getColumnIndex("ACTUAL_AMOUNT")));
-                            amount -= existingAmount;
-                            if (amount < 0) {
-                                amount = 0;
+                        AlertDialog.Builder travelAlertBuilder = new AlertDialog.Builder(TravelActivity.this);
+                        travelAlertBuilder.setTitle("Are you sure to delete ?");
+                        travelAlertBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dbHelper.deleteTravelHistory(l);
+                                if (dbCursor.getCount() > 0) {
+                                    dbCursor.moveToFirst();
+                                    int amount  = Integer.parseInt(editTextAmount.getText().toString());
+                                    int existingAmount = Integer.parseInt(dbCursor.getString(dbCursor.getColumnIndex("ACTUAL_AMOUNT")));
+                                    amount -= existingAmount;
+                                    if (amount < 0) {
+                                        amount = 0;
+                                    }
+                                    dbHelper.updateSavingsPlanExpense(amount, month, year);
+                                }
+                                Toast.makeText(TravelActivity.this, "Travel cost deleted", Toast.LENGTH_LONG).show();
+                                travelHistory();
                             }
-                            dbHelper.updateSavingsPlanExpense(amount, month, year);
-                        }
-                        Toast.makeText(TravelActivity.this, "Travel cost deleted", Toast.LENGTH_LONG).show();
-                        travelHistory();
+                        });
+
+                        travelAlertBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.cancel();
+                            }
+                        });
+
+                        AlertDialog travelAlert = travelAlertBuilder.create();
+                        travelAlert.show();
                     }
                 });
 
@@ -211,19 +233,19 @@ public class TravelActivity extends AppCompatActivity implements View.OnClickLis
             EditText editTextVehicle = travelDialogView.findViewById(R.id.et_travelCostVehicle);
             EditText editTextAmount = travelDialogView.findViewById(R.id.et_travelCostAmount);
 
-            String source = editTextSource.getText().toString();
-            String destination = editTextDestination.getText().toString();
-            String vehicle = editTextVehicle.getText().toString();
+            String source = editTextSource.getText().toString().trim();
+            String destination = editTextDestination.getText().toString().trim();
+            String vehicle = editTextVehicle.getText().toString().trim();
             int calculatedAmount = 0;
-            if (!editTextAmount.getText().toString().equals("")) {
-                calculatedAmount = Integer.parseInt(editTextAmount.getText().toString());
+            if (!editTextAmount.getText().toString().isEmpty()) {
+                calculatedAmount = Integer.parseInt(editTextAmount.getText().toString().trim());
             }
             int amount = calculatedAmount;
 
             Cursor dbCursor = dbHelper.checkSavingsPlan(month, year);
 
             // checking if any of the field is empty
-            if (source.equals("") || destination.equals("") || vehicle.equals("") || amount == 0) {
+            if (source.isEmpty() || destination.isEmpty() || vehicle.isEmpty() || amount == 0) {
                 Toast.makeText(this, "Please fill up all the fields before you submit", Toast.LENGTH_LONG).show();
             } else {
                 long id = dbHelper.addTravelHistory(new TravelHistoryModel(source, destination, vehicle, amount));
@@ -313,10 +335,19 @@ public class TravelActivity extends AppCompatActivity implements View.OnClickLis
 
         if (item.getItemId() == android.R.id.home) {
             startActivity(new Intent(this, MainActivity.class));
+            finish();
         } else if (item.getItemId() == R.id.about) {
             startActivity(new Intent(this, AboutActivity.class));
+            finish();
         } else if (item.getItemId() == R.id.credits) {
             startActivity(new Intent(this, CreditsActivity.class));
+            finish();
+        } else if (item.getItemId() == R.id.set_pin) {
+            startActivity(new Intent(this, PinCodeActivity.class));
+            finish();
+        } else if (item.getItemId() == R.id.change_pin) {
+            startActivity(new Intent(this, ChangePinActivity.class));
+            finish();
         }
 
 

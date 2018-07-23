@@ -85,8 +85,8 @@ public class SavingsPlanActivity extends AppCompatActivity implements View.OnCli
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.btnSaveBudget) {
-            String amount = editTextBudget.getText().toString();
-            if (amount.equals("")) {
+            String amount = editTextBudget.getText().toString().trim();
+            if (amount.isEmpty()) {
                 Toast.makeText(this,"Please enter an amount",Toast.LENGTH_SHORT).show();
             } else {
                 int targetAmount = Integer.parseInt(amount);
@@ -148,7 +148,6 @@ public class SavingsPlanActivity extends AppCompatActivity implements View.OnCli
             }
 
             while (cursor.moveToNext()) {
-                TextView textViewMonth = view.findViewById(R.id.tv_savingsMonth);
                 TextView textViewExpected = view.findViewById(R.id.tvExpectedBudget);
                 TextView textViewEstimated = view.findViewById(R.id.tvEstimatedBudget);
                 TextView textViewResult = view.findViewById(R.id.tvSavingsResult);
@@ -186,10 +185,19 @@ public class SavingsPlanActivity extends AppCompatActivity implements View.OnCli
 
         if (item.getItemId() == android.R.id.home) {
             startActivity(new Intent(this, MainActivity.class));
+            finish();
         } else if (item.getItemId() == R.id.about) {
             startActivity(new Intent(this, AboutActivity.class));
+            finish();
         } else if (item.getItemId() == R.id.credits) {
             startActivity(new Intent(this, CreditsActivity.class));
+            finish();
+        } else if (item.getItemId() == R.id.set_pin) {
+            startActivity(new Intent(this, PinCodeActivity.class));
+            finish();
+        } else if (item.getItemId() == R.id.change_pin) {
+            startActivity(new Intent(this, ChangePinActivity.class));
+            finish();
         }
 
 
