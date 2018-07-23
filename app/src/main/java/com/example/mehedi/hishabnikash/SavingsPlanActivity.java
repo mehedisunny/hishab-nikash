@@ -102,6 +102,7 @@ public class SavingsPlanActivity extends AppCompatActivity implements View.OnCli
                     clearFields();
                     if (id > 0) {
                         Toast.makeText(this,"Your target amount for this month is set to BDT "+targetAmount,Toast.LENGTH_SHORT).show();
+                        setListView();
                     } else {
                         Toast.makeText(this,"Failed to set target amount",Toast.LENGTH_SHORT).show();
                     }

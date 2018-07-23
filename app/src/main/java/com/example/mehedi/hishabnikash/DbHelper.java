@@ -265,4 +265,24 @@ public class DbHelper extends SQLiteOpenHelper {
         return travelCostList;
     }
 
+    /*
+     * this method is responsible for updating existing entry for the current month
+     * @param SavingsPlanHolder object
+     * @return void (just updating an existing row)
+     * */
+    public void updateOthersCost (OtherCostHolder otherCostHolder, long id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("PURPOSE", otherCostHolder.getPurpose());
+        contentValues.put("AMOUNT", otherCostHolder.getAmount());
+
+        db.update(TBL_OTHERS_COST, contentValues, "_ID = ?", new String[] {id+""});
+    }
+
+    public void deleteOtherCost (long id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        db.delete(TBL_OTHERS_COST, "_ID = ?", new String[] {id+""});
+    }
+
 }

@@ -78,7 +78,7 @@ public class OthersCostActivity extends AppCompatActivity implements View.OnClic
         othersCostListView.setAdapter(savingsAdapter);
         othersCostListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, final long l) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(OthersCostActivity.this);
                 LayoutInflater inflater = getLayoutInflater();
                 view = inflater.inflate(R.layout.other_cost_dialog, null);
@@ -86,23 +86,65 @@ public class OthersCostActivity extends AppCompatActivity implements View.OnClic
                 ArrayList<OtherCostHolder> singleData = new ArrayList<>();
                 singleData = dbHelper.getSingleCostInfo(l);
 
-                EditText editTextPurpose = view.findViewById(R.id.et_otherCostPurpose);
-                EditText editTextAmount = view.findViewById(R.id.et_otherCostAmount);
+                final EditText editTextPurpose = view.findViewById(R.id.et_otherCostPurpose);
+                final EditText editTextAmount = view.findViewById(R.id.et_otherCostAmount);
+
                 editTextPurpose.setText(singleData.get(0).getPurpose());
                 editTextAmount.setText(singleData.get(0).getAmount()+"");
+
+                final int currentBalance = Integer.parseInt(singleData.get(0).getAmount()+"");
+
                 builder.setView(view);
+
+                final Cursor dbCursor = dbHelper.checkSavingsPlan(month, year);
 
                 builder.setPositiveButton("Update", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        Toast.makeText(OthersCostActivity.this, "Updation code will be here", Toast.LENGTH_LONG).show();
+                        final String purpose = editTextPurpose.getText().toString();
+                        int amount  = Integer.parseInt(editTextAmount.getText().toString());
+                        dbHelper.updateOthersCost(new OtherCostHolder(purpose, amount), l);
+                        if (dbCursor.getCount() > 0) {
+                            int finalAmount = 0;
+                            int updatedAmount = 0;
+                            dbCursor.moveToFirst();
+                            int existingAmount = Integer.parseInt(dbCursor.getString(dbCursor.getColumnIndex("ACTUAL_AMOUNT")));
+                            if (currentBalance < amount) {
+                                updatedAmount = amount - currentBalance;
+                                finalAmount = existingAmount + updatedAmount;
+                                amount += existingAmount;
+                            } else {
+                                updatedAmount = currentBalance - amount;
+                                finalAmount = existingAmount - updatedAmount;
+                            }
+
+                            if (finalAmount <= 0) {
+                                finalAmount = 0;
+                            }
+
+                            dbHelper.updateSavingsPlanExpense(finalAmount, month, year);
+                        }
+                        Toast.makeText(OthersCostActivity.this, "Daily cost updated", Toast.LENGTH_LONG).show();
+                        setOtherCostList();
                     }
                 });
 
                 builder.setNegativeButton("Delete", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        Toast.makeText(OthersCostActivity.this, "Deletion code will be here", Toast.LENGTH_LONG).show();
+                        dbHelper.deleteOtherCost(l);
+                        if (dbCursor.getCount() > 0) {
+                            dbCursor.moveToFirst();
+                            int amount  = Integer.parseInt(editTextAmount.getText().toString());
+                            int existingAmount = Integer.parseInt(dbCursor.getString(dbCursor.getColumnIndex("ACTUAL_AMOUNT")));
+                            amount -= existingAmount;
+                            if (amount < 0) {
+                                amount = 0;
+                            }
+                            dbHelper.updateSavingsPlanExpense(amount, month, year);
+                        }
+                        Toast.makeText(OthersCostActivity.this, "Daily cost deleted", Toast.LENGTH_LONG).show();
+                        setOtherCostList();
                     }
                 });
 
