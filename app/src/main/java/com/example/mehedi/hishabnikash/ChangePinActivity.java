@@ -71,10 +71,10 @@ public class ChangePinActivity extends AppCompatActivity implements View.OnClick
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString("pin", pinCode);
                     editor.commit();
+                    Toast.makeText(this, "You have successfully set your new pin", Toast.LENGTH_SHORT).show();
                 }
 
                 clearFields();
-                Toast.makeText(this, "You have successfully set your new pin", Toast.LENGTH_SHORT).show();
                 finish();
             } else {
                 if (cbRemove.isChecked()) {
