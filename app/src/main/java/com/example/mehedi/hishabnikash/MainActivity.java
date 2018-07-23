@@ -76,6 +76,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(new Intent(this, AboutActivity.class));
         } else if (item.getItemId() == R.id.credits) {
             startActivity(new Intent(this, CreditsActivity.class));
+        } else if (item.getItemId() == R.id.set_pin) {
+            startActivity(new Intent(this, PinCodeActivity.class));
+        } else if (item.getItemId() == R.id.change_pin) {
+            startActivity(new Intent(this, ChangePinActivity.class));
         }
 
 

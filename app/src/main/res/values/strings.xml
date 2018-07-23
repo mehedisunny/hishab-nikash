@@ -20,4 +20,7 @@
         Redwan Rahat \n
         Arifur Rahman
     </string>
+    <string name="tv_pin_code_set">Enter a 4 digit pin code</string>
+    <string name="btn_pin_code_set">Set Pin</string>
+    <string name="btn_pin_code_check">Submit</string>
 </resources>

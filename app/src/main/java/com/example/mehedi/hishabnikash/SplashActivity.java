@@ -1,6 +1,7 @@
 package com.example.mehedi.hishabnikash;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -8,11 +9,12 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 public class SplashActivity extends AppCompatActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
@@ -24,8 +26,16 @@ public class SplashActivity extends AppCompatActivity {
         int secondsDelayed = 2;
         new Handler().postDelayed(new Runnable() {
             public void run() {
-                startActivity(new Intent(SplashActivity.this, MainActivity.class));
-                finish();
+                SharedPreferences sharedPreferences = getSharedPreferences("HNPIN", MODE_PRIVATE);
+                String pinCode = sharedPreferences.getString("pin", "hello");
+
+                if (pinCode.equals("hello")) {
+                    startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                    finish();
+                } else {
+                    startActivity(new Intent(SplashActivity.this, PinCodeVerificationActivity.class));
+                    finish();
+                }
             }
         }, secondsDelayed * 1000);
     }

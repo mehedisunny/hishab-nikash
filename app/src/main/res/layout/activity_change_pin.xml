@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    tools:context=".ChangePinActivity">
+
+    <EditText
+        android:textAlignment="center"
+        android:id="@+id/et_pinCodePrevious"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter current pin"
+        android:padding="10dp"
+        android:layout_marginLeft="50dp"
+        android:maxLength="4"
+        android:inputType="numberPassword"
+        android:textSize="26sp"
+        android:singleLine="true"
+        android:layout_marginRight="50dp"
+        android:layout_marginBottom="20dp"/>
+
+    <EditText
+        android:textAlignment="center"
+        android:id="@+id/et_pinCodeNew"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter new pin"
+        android:padding="10dp"
+        android:layout_marginLeft="50dp"
+        android:maxLength="4"
+        android:inputType="numberPassword"
+        android:textSize="26sp"
+        android:singleLine="true"
+        android:layout_marginRight="50dp"
+        android:layout_marginBottom="20dp"/>
+
+    <Button
+        android:id="@+id/btn_pinCodeReset"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_pin_code_check"
+        android:textAlignment="center"
+        android:textColor="#fff"
+        android:textSize="18sp"
+        android:background="@color/colorPrimary"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp" />
+
+</LinearLayout>

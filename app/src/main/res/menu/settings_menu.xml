@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/set_pin"
+        android:title="Set Pin">
+    </item>
+    <item android:id="@+id/change_pin"
+        android:title="Change Pin">
+    </item>
     <item android:id="@+id/about"
         android:title="About App">
     </item>
