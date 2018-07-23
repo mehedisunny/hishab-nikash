@@ -120,7 +120,7 @@ public class TravelActivity extends AppCompatActivity implements View.OnClickLis
                         final String destination = editTextDestination.getText().toString().trim();
                         final String vehicle = editTextVehicleType.getText().toString().trim();
                         int amount  = Integer.parseInt(editTextAmount.getText().toString().trim());
-                        if (source.isEmpty() || destination.isEmpty() || vehicle.isEmpty() || amount == 0) {
+                        if (source.isEmpty() || destination.isEmpty() || amount == 0) {
                             Toast.makeText(TravelActivity.this, "Make sure you filled up all the fields", Toast.LENGTH_LONG).show();
                         } else {
                             dbHelper.updateTravelHistory(new TravelHistoryModel(source, destination, vehicle, amount), l);
@@ -245,7 +245,7 @@ public class TravelActivity extends AppCompatActivity implements View.OnClickLis
             Cursor dbCursor = dbHelper.checkSavingsPlan(month, year);
 
             // checking if any of the field is empty
-            if (source.isEmpty() || destination.isEmpty() || vehicle.isEmpty() || amount == 0) {
+            if (source.isEmpty() || destination.isEmpty() || amount == 0) {
                 Toast.makeText(this, "Please fill up all the fields before you submit", Toast.LENGTH_LONG).show();
             } else {
                 long id = dbHelper.addTravelHistory(new TravelHistoryModel(source, destination, vehicle, amount));
