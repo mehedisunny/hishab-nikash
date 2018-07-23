@@ -25,6 +25,7 @@ public class TravelHistoryModel {
         year = calendar.get(Calendar.YEAR);
     }
 
+
     public TravelHistoryModel (int id, String sourcePlace, String destinationPlace, String vehicleType, int amount) {
         this._id = id;
         this._sourcePlace = sourcePlace;

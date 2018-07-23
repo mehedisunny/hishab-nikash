@@ -112,7 +112,6 @@ public class OthersCostActivity extends AppCompatActivity implements View.OnClic
                             if (currentBalance < amount) {
                                 updatedAmount = amount - currentBalance;
                                 finalAmount = existingAmount + updatedAmount;
-                                amount += existingAmount;
                             } else {
                                 updatedAmount = currentBalance - amount;
                                 finalAmount = existingAmount - updatedAmount;

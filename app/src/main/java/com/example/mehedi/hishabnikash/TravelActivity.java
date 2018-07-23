@@ -8,12 +8,14 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -85,6 +87,94 @@ public class TravelActivity extends AppCompatActivity implements View.OnClickLis
         travelHistoryModels = dbHelper.getTravelCostList(month, year);
         TravelCostAdapter travelCostAdapter = new TravelCostAdapter(this, travelHistoryModels);
         listView.setAdapter(travelCostAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(final AdapterView<?> adapterView, View view, int i, final long l) {
+                android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(TravelActivity.this);
+                LayoutInflater inflater = getLayoutInflater();
+                view = inflater.inflate(R.layout.travel_cost_dialog, null);
+
+                ArrayList<TravelHistoryModel> singleData = new ArrayList<>();
+                singleData = dbHelper.getSingleTravelCostInfo(l);
+
+                final EditText editTextSource = view.findViewById(R.id.et_travelCostFrom);
+                final EditText editTextDestination = view.findViewById(R.id.et_travelCostTo);
+                final EditText editTextVehicleType = view.findViewById(R.id.et_travelCostVehicle);
+                final EditText editTextAmount = view.findViewById(R.id.et_travelCostAmount);
+
+                editTextSource.setText(singleData.get(0).getSourcePlace());
+                editTextDestination.setText(singleData.get(0).getDestinationPlace());
+                editTextVehicleType.setText(singleData.get(0).getVehicleType());
+                editTextAmount.setText(singleData.get(0).getAmount()+"");
+
+                final int currentBalance = Integer.parseInt(singleData.get(0).getAmount()+"");
+
+                builder.setView(view);
+
+                final Cursor dbCursor = dbHelper.checkSavingsPlan(month, year);
+
+                builder.setPositiveButton("Update", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        final String source = editTextSource.getText().toString();
+                        final String destination = editTextDestination.getText().toString();
+                        final String vehicle = editTextVehicleType.getText().toString();
+                        int amount  = Integer.parseInt(editTextAmount.getText().toString());
+                        dbHelper.updateTravelHistory(new TravelHistoryModel(source, destination, vehicle, amount), l);
+                        if (dbCursor.getCount() > 0) {
+                            int finalAmount = 0;
+                            int updatedAmount = 0;
+                            dbCursor.moveToFirst();
+                            int existingAmount = Integer.parseInt(dbCursor.getString(dbCursor.getColumnIndex("ACTUAL_AMOUNT")));
+                            if (currentBalance < amount) {
+                                updatedAmount = amount - currentBalance;
+                                finalAmount = existingAmount + updatedAmount;
+                            } else {
+                                updatedAmount = currentBalance - amount;
+                                finalAmount = existingAmount - updatedAmount;
+                            }
+
+                            if (finalAmount <= 0) {
+                                finalAmount = 0;
+                            }
+
+                            dbHelper.updateSavingsPlanExpense(finalAmount, month, year);
+                        }
+                        Toast.makeText(TravelActivity.this, "Travel cost updated", Toast.LENGTH_LONG).show();
+                        travelHistory();
+                    }
+                });
+
+                builder.setNegativeButton("Delete", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dbHelper.deleteTravelHistory(l);
+                        if (dbCursor.getCount() > 0) {
+                            dbCursor.moveToFirst();
+                            int amount  = Integer.parseInt(editTextAmount.getText().toString());
+                            int existingAmount = Integer.parseInt(dbCursor.getString(dbCursor.getColumnIndex("ACTUAL_AMOUNT")));
+                            amount -= existingAmount;
+                            if (amount < 0) {
+                                amount = 0;
+                            }
+                            dbHelper.updateSavingsPlanExpense(amount, month, year);
+                        }
+                        Toast.makeText(TravelActivity.this, "Travel cost deleted", Toast.LENGTH_LONG).show();
+                        travelHistory();
+                    }
+                });
+
+                builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.cancel();
+                    }
+                });
+
+                android.app.AlertDialog alertDialog = builder.create();
+                alertDialog.show();
+            }
+        });
     }
 
     /*
@@ -179,7 +269,7 @@ public class TravelActivity extends AppCompatActivity implements View.OnClickLis
 
         @Override
         public long getItemId(int i) {
-            return 0;
+            return travelCostList.get(i).getId();
         }
 
         @Override

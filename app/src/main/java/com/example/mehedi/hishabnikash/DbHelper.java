@@ -1,5 +1,6 @@
 package com.example.mehedi.hishabnikash;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -283,6 +284,40 @@ public class DbHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         db.delete(TBL_OTHERS_COST, "_ID = ?", new String[] {id+""});
+    }
+
+    public void updateTravelHistory (TravelHistoryModel travelHistoryModel, long id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("START_POINT", travelHistoryModel.getSourcePlace());
+        contentValues.put("DESTINATION", travelHistoryModel.getDestinationPlace());
+        contentValues.put("VEHICLE_TYPE", travelHistoryModel.getVehicleType());
+        contentValues.put("AMOUNT", travelHistoryModel.getAmount());
+
+        db.update(TBL_VEHICLE_COST, contentValues, "_ID = ?", new String[] {id+""});
+    }
+
+    public void deleteTravelHistory (long id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        db.delete(TBL_VEHICLE_COST, "_ID = ?", new String[] {id+""});
+    }
+
+    public ArrayList<TravelHistoryModel> getSingleTravelCostInfo (long dbId) {
+        ArrayList<TravelHistoryModel> costList = new ArrayList<>();
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.query(TBL_VEHICLE_COST, null, "_ID = ? ",new String[] {dbId+""},null,null, null);
+        cursor.moveToFirst();
+        int id = Integer.parseInt(cursor.getString(cursor.getColumnIndex("_ID")));
+        String source = cursor.getString(cursor.getColumnIndex("START_POINT"));
+        String destination = cursor.getString(cursor.getColumnIndex("DESTINATION"));
+        String vehicle = cursor.getString(cursor.getColumnIndex("VEHICLE_TYPE"));
+        int amount = Integer.parseInt(cursor.getString(cursor.getColumnIndex("AMOUNT")));
+
+        costList.add(new TravelHistoryModel(id,source,destination,vehicle,amount));
+
+        return costList;
     }
 
 }
