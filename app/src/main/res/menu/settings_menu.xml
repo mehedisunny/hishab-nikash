@@ -6,6 +6,9 @@
     <item android:id="@+id/change_pin"
         android:title="Change Pin">
     </item>
+    <item android:id="@+id/set_security_question"
+        android:title="Security Question">
+    </item>
     <item android:id="@+id/about"
         android:title="About App">
     </item>

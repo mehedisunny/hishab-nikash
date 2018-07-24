@@ -8,6 +8,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import com.example.mehedi.hishabnikash.pin_code.ChangePinActivity;
+import com.example.mehedi.hishabnikash.pin_code.PinCodeActivity;
+
 public class AboutActivity extends AppCompatActivity {
 
     @Override

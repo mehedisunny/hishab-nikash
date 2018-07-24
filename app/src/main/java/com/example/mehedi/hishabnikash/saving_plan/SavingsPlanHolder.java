@@ -1,4 +1,4 @@
-package com.example.mehedi.hishabnikash;
+package com.example.mehedi.hishabnikash.saving_plan;
 
 public class SavingsPlanHolder {
 

@@ -6,10 +6,9 @@ import android.os.Handler;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Toast;
+
+import com.example.mehedi.hishabnikash.pin_code.PinCodeVerificationActivity;
 
 public class SplashActivity extends AppCompatActivity {
 

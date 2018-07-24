@@ -1,4 +1,4 @@
-package com.example.mehedi.hishabnikash;
+package com.example.mehedi.hishabnikash.travel_cost;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -8,7 +8,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -22,6 +21,14 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.mehedi.hishabnikash.AboutActivity;
+import com.example.mehedi.hishabnikash.pin_code.ChangePinActivity;
+import com.example.mehedi.hishabnikash.CreditsActivity;
+import com.example.mehedi.hishabnikash.MainActivity;
+import com.example.mehedi.hishabnikash.pin_code.PinCodeActivity;
+import com.example.mehedi.hishabnikash.R;
+import com.example.mehedi.hishabnikash.db.DbHelper;
 
 import java.util.ArrayList;
 import java.util.Calendar;

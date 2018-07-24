@@ -1,4 +1,4 @@
-package com.example.mehedi.hishabnikash;
+package com.example.mehedi.hishabnikash.pin_code;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,15 +14,22 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class PinCodeActivity extends AppCompatActivity implements View.OnClickListener {
+import com.example.mehedi.hishabnikash.AboutActivity;
+import com.example.mehedi.hishabnikash.CreditsActivity;
+import com.example.mehedi.hishabnikash.MainActivity;
+import com.example.mehedi.hishabnikash.R;
 
-    private EditText etPinCode;
+public class ChangePinActivity extends AppCompatActivity implements View.OnClickListener {
+
+    private EditText etPinCodeCurrent, etPinCodeNew;
     private Button btnSetCode;
+    private CheckBox cbRemove;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pin_code);
+        setContentView(R.layout.activity_change_pin);
+
         ActionBar actionBar = getSupportActionBar();
         if(actionBar == null)
             actionBar = getSupportActionBar();
@@ -35,34 +42,52 @@ public class PinCodeActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     public void init () {
-        etPinCode = findViewById(R.id.et_pinCodeSet);
-        btnSetCode = findViewById(R.id.btn_pinCodeSet);
+        etPinCodeCurrent = findViewById(R.id.et_pinCodePrevious);
+        etPinCodeNew = findViewById(R.id.et_pinCodeNew);
+        btnSetCode = findViewById(R.id.btn_pinCodeReset);
+        cbRemove = findViewById(R.id.cb_pinCodeRemove);
     }
 
     public void listeners() {
         btnSetCode.setOnClickListener(this);
+        cbRemove.setOnClickListener(this);
     }
 
     public void clearFields () {
-        etPinCode.setText("");
+        etPinCodeCurrent.setText("");
+        etPinCodeNew.setText("");
+        cbRemove.setChecked(false);
     }
 
     @Override
     public void onClick(View view) {
-        if (view.getId() == R.id.btn_pinCodeSet) {
-
+        if (view.getId() == R.id.btn_pinCodeReset) {
             SharedPreferences sharedPreferences = getSharedPreferences("HNPIN", MODE_PRIVATE);
             String isPinSet = sharedPreferences.getString("pin","hello");
-            if (isPinSet.equals("hello")) {
-                String pinCode = etPinCode.getText().toString().trim();
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString("pin", pinCode);
-                editor.commit();
+            String userInput = etPinCodeCurrent.getText().toString().trim();
+            if (isPinSet.equals(userInput)) {
+                if (cbRemove.isChecked()) {
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("pin", "hello");
+                    editor.commit();
+                    Toast.makeText(this, "Your pin has successfully removed", Toast.LENGTH_SHORT).show();
+                } else {
+                    String pinCode = etPinCodeNew.getText().toString().trim();
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("pin", pinCode);
+                    editor.commit();
+                    Toast.makeText(this, "You have successfully set your new pin", Toast.LENGTH_SHORT).show();
+                }
+
                 clearFields();
-                Toast.makeText(this, "You have successfully set your pin", Toast.LENGTH_SHORT).show();
+                finish();
             } else {
+                if (cbRemove.isChecked()) {
+                    Toast.makeText(this, "Enter current pin before you remove it", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "Sorry current pin doesn't match with the stored one", Toast.LENGTH_SHORT).show();
+                }
                 clearFields();
-                Toast.makeText(this, "You have already set your pin code.", Toast.LENGTH_SHORT).show();
             }
         }
     }

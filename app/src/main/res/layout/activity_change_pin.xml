@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    tools:context=".ChangePinActivity">
+    tools:context=".pin_code.ChangePinActivity">
 
     <EditText
         android:textAlignment="center"

@@ -1,7 +1,6 @@
 package com.example.mehedi.hishabnikash;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -9,6 +8,12 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+
+import com.example.mehedi.hishabnikash.daily_cost.OthersCostActivity;
+import com.example.mehedi.hishabnikash.pin_code.ChangePinActivity;
+import com.example.mehedi.hishabnikash.pin_code.PinCodeActivity;
+import com.example.mehedi.hishabnikash.saving_plan.SavingsPlanActivity;
+import com.example.mehedi.hishabnikash.travel_cost.TravelActivity;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 

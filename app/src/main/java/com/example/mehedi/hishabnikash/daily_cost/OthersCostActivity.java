@@ -1,8 +1,6 @@
-package com.example.mehedi.hishabnikash;
+package com.example.mehedi.hishabnikash.daily_cost;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -12,7 +10,6 @@ import android.support.annotation.RequiresApi;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -20,13 +17,21 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.mehedi.hishabnikash.AboutActivity;
+import com.example.mehedi.hishabnikash.pin_code.ChangePinActivity;
+import com.example.mehedi.hishabnikash.CreditsActivity;
+import com.example.mehedi.hishabnikash.db.DbHelper;
+import com.example.mehedi.hishabnikash.MainActivity;
+import com.example.mehedi.hishabnikash.pin_code.PinCodeActivity;
+import com.example.mehedi.hishabnikash.R;
+import com.example.mehedi.hishabnikash.pin_code.SecurityQuestionActivity;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -324,6 +329,9 @@ public class OthersCostActivity extends AppCompatActivity implements View.OnClic
             finish();
         } else if (item.getItemId() == R.id.change_pin) {
             startActivity(new Intent(this, ChangePinActivity.class));
+            finish();
+        } else if (item.getItemId() == R.id.set_security_question) {
+            startActivity(new Intent(this, SecurityQuestionActivity.class));
             finish();
         }
 

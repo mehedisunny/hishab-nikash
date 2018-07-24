@@ -10,21 +10,23 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity" />
-        <activity android:name=".SavingsPlanActivity" />
-        <activity android:name=".OthersCostActivity" />
-        <activity android:name=".TravelActivity" />
+        <activity android:name=".saving_plan.SavingsPlanActivity" />
+        <activity android:name=".daily_cost.OthersCostActivity" />
+        <activity android:name=".travel_cost.TravelActivity" />
         <activity android:name=".CreditsActivity" />
         <activity android:name=".AboutActivity" />
         <activity android:name=".SplashActivity">
+        </activity>
+        <activity android:name=".pin_code.PinCodeActivity" />
+        <activity android:name=".pin_code.PinCodeVerificationActivity" />
+        <activity android:name=".pin_code.ChangePinActivity" />
+        <activity android:name=".pin_code.SecurityQuestionActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".PinCodeActivity" />
-        <activity android:name=".PinCodeVerificationActivity" />
-        <activity android:name=".ChangePinActivity"></activity>
     </application>
 
 </manifest>

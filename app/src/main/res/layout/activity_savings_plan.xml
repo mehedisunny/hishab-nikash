@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".SavingsPlanActivity"
+    tools:context=".saving_plan.SavingsPlanActivity"
     android:weightSum="10"
     android:background="@drawable/travel_btn">
 

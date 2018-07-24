@@ -23,4 +23,8 @@
     <string name="tv_pin_code_set">Enter a 4 digit pin code</string>
     <string name="btn_pin_code_set">Set Pin</string>
     <string name="btn_pin_code_check">Submit</string>
+    <string name="security_question_one">What was your childhood nickname?</string>
+    <string name="security_question_two">Who is your childhood sports hero?</string>
+    <string name="security_question_three">What was your favorite food as a child?</string>
+    <string name="btn_security_question_set">Set Security Question</string>
 </resources>
