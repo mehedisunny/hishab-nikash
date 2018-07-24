@@ -1,6 +1,5 @@
 package com.example.mehedi.hishabnikash.pin_code;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.ActionBar;
@@ -19,15 +18,16 @@ import com.example.mehedi.hishabnikash.CreditsActivity;
 import com.example.mehedi.hishabnikash.MainActivity;
 import com.example.mehedi.hishabnikash.R;
 
-public class SecurityQuestionActivity extends AppCompatActivity implements View.OnClickListener {
+public class VerifySecurityQuestionActivity extends AppCompatActivity implements View.OnClickListener {
 
     private EditText firstAnswer, secondAnswer, thirdAnswer;
     private Button btnSetQuestion;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_security_question);
+        setContentView(R.layout.activity_verify_security_question);
 
         ActionBar actionBar = getSupportActionBar();
         if(actionBar == null)
@@ -41,17 +41,16 @@ public class SecurityQuestionActivity extends AppCompatActivity implements View.
         setListener();
     }
 
-
     /*
-    * this method is responsible for initializing all the components that have interaction with the
-    * activity
-    * @param void
-    * @return void
-    * */
+     * this method is responsible for initializing all the components that have interaction with the
+     * activity
+     * @param void
+     * @return void
+     * */
     public void init () {
-        firstAnswer = findViewById(R.id.et_securityQuestionOne);
-        secondAnswer = findViewById(R.id.et_securityQuestionTwo);
-        thirdAnswer = findViewById(R.id.et_securityQuestionThree);
+        firstAnswer = findViewById(R.id.et_securityAnswerOne);
+        secondAnswer = findViewById(R.id.et_securityAnswerTwo);
+        thirdAnswer = findViewById(R.id.et_securityAnswerThree);
         btnSetQuestion = findViewById(R.id.btn_setSecurityQuestion);
     }
 
@@ -77,7 +76,6 @@ public class SecurityQuestionActivity extends AppCompatActivity implements View.
         thirdAnswer.setText("");
     }
 
-    @SuppressLint("ApplySharedPref")
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.btn_setSecurityQuestion) {
@@ -88,17 +86,34 @@ public class SecurityQuestionActivity extends AppCompatActivity implements View.
             if (questionOne.isEmpty() || questionTwo.isEmpty() || questionThree.isEmpty()) {
                 Toast.makeText(this, "Please fill up all the fields", Toast.LENGTH_SHORT).show();
             } else {
+                int counter = 0;
                 SharedPreferences sharedPreferences = getSharedPreferences("HNPIN", MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString("firstAnswer", questionOne);
-                editor.putString("secondAnswer", questionTwo);
-                editor.putString("thirdAnswer", questionThree);
-                editor.commit();
+                String answerOne = sharedPreferences.getString("firstAnswer", null);
+                String answerTwo = sharedPreferences.getString("secondAnswer", null);
+                String answerThree = sharedPreferences.getString("thirdAnswer", null);
 
-                clearFields();
+                if (questionOne.equals(answerOne)) {
+                    counter++;
+                }
 
-                Toast.makeText(this, "You have successfully set your security questions", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(this, MainActivity.class));
+                if (questionTwo.equals(answerTwo)) {
+                    counter++;
+                }
+
+                if (questionThree.equals(answerThree)) {
+                    counter++;
+                }
+
+                if (counter >= 2) {
+                    SharedPreferences sh = getSharedPreferences("HNPIN", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sh.edit();
+                    editor.putString("pin", "hello");
+                    editor.commit();
+                    startActivity(new Intent(this, MainActivity.class));
+                } else {
+                    clearFields();
+                    Toast.makeText(this, "Your answer do not match with the records", Toast.LENGTH_SHORT).show();
+                }
             }
         }
     }

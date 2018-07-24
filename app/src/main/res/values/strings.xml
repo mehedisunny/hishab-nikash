@@ -27,4 +27,5 @@
     <string name="security_question_two">Who is your childhood sports hero?</string>
     <string name="security_question_three">What was your favorite food as a child?</string>
     <string name="btn_security_question_set">Set Security Question</string>
+    <string name="tv_forgot_pin">forgot pin ?</string>
 </resources>

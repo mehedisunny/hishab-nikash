@@ -15,7 +15,7 @@ import com.example.mehedi.hishabnikash.R;
 public class PinCodeVerificationActivity extends AppCompatActivity implements View.OnClickListener {
 
     private EditText etPinCode;
-    private Button btnSetCode;
+    private Button btnSetCode, btnVerification;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,10 +30,12 @@ public class PinCodeVerificationActivity extends AppCompatActivity implements Vi
     public void init () {
         etPinCode = findViewById(R.id.et_pinCodeCheck);
         btnSetCode = findViewById(R.id.btn_pinCodeCheck);
+        btnVerification = findViewById(R.id.btnForgotPin);
     }
 
     public void listeners() {
         btnSetCode.setOnClickListener(this);
+        btnVerification.setOnClickListener(this);
     }
 
     public void clearFields () {
@@ -55,6 +57,8 @@ public class PinCodeVerificationActivity extends AppCompatActivity implements Vi
                 Toast.makeText(this, "Sorry!! Wrong pin number", Toast.LENGTH_SHORT).show();
             }
 
+        } else if (view.getId() == R.id.btnForgotPin) {
+            startActivity(new Intent(PinCodeVerificationActivity.this, VerifySecurityQuestionActivity.class));
         }
     }
 }

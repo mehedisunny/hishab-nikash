@@ -12,6 +12,7 @@ import android.widget.Button;
 import com.example.mehedi.hishabnikash.daily_cost.OthersCostActivity;
 import com.example.mehedi.hishabnikash.pin_code.ChangePinActivity;
 import com.example.mehedi.hishabnikash.pin_code.PinCodeActivity;
+import com.example.mehedi.hishabnikash.pin_code.SecurityQuestionActivity;
 import com.example.mehedi.hishabnikash.saving_plan.SavingsPlanActivity;
 import com.example.mehedi.hishabnikash.travel_cost.TravelActivity;
 
@@ -85,6 +86,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(new Intent(this, PinCodeActivity.class));
         } else if (item.getItemId() == R.id.change_pin) {
             startActivity(new Intent(this, ChangePinActivity.class));
+        } else if (item.getItemId() == R.id.set_security_question) {
+            startActivity(new Intent(this, SecurityQuestionActivity.class));
         }
 
 

@@ -16,17 +16,18 @@
         <activity android:name=".CreditsActivity" />
         <activity android:name=".AboutActivity" />
         <activity android:name=".SplashActivity">
-        </activity>
-        <activity android:name=".pin_code.PinCodeActivity" />
-        <activity android:name=".pin_code.PinCodeVerificationActivity" />
-        <activity android:name=".pin_code.ChangePinActivity" />
-        <activity android:name=".pin_code.SecurityQuestionActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".pin_code.PinCodeActivity" />
+        <activity android:name=".pin_code.PinCodeVerificationActivity">
+        </activity>
+        <activity android:name=".pin_code.ChangePinActivity" />
+        <activity android:name=".pin_code.SecurityQuestionActivity"></activity>
+        <activity android:name=".pin_code.VerifySecurityQuestionActivity"></activity>
     </application>
 
 </manifest>

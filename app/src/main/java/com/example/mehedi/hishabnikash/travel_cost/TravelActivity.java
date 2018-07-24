@@ -29,6 +29,7 @@ import com.example.mehedi.hishabnikash.MainActivity;
 import com.example.mehedi.hishabnikash.pin_code.PinCodeActivity;
 import com.example.mehedi.hishabnikash.R;
 import com.example.mehedi.hishabnikash.db.DbHelper;
+import com.example.mehedi.hishabnikash.pin_code.SecurityQuestionActivity;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -354,6 +355,9 @@ public class TravelActivity extends AppCompatActivity implements View.OnClickLis
             finish();
         } else if (item.getItemId() == R.id.change_pin) {
             startActivity(new Intent(this, ChangePinActivity.class));
+            finish();
+        } else if (item.getItemId() == R.id.set_security_question) {
+            startActivity(new Intent(this, SecurityQuestionActivity.class));
             finish();
         }
 

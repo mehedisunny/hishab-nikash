@@ -96,6 +96,9 @@ public class PinCodeActivity extends AppCompatActivity implements View.OnClickLi
         } else if (item.getItemId() == R.id.change_pin) {
             startActivity(new Intent(this, ChangePinActivity.class));
             finish();
+        } else if (item.getItemId() == R.id.set_security_question) {
+            startActivity(new Intent(this, SecurityQuestionActivity.class));
+            finish();
         }
 
 

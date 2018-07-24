@@ -10,6 +10,7 @@ import android.view.MenuItem;
 
 import com.example.mehedi.hishabnikash.pin_code.ChangePinActivity;
 import com.example.mehedi.hishabnikash.pin_code.PinCodeActivity;
+import com.example.mehedi.hishabnikash.pin_code.SecurityQuestionActivity;
 
 public class AboutActivity extends AppCompatActivity {
 
@@ -48,6 +49,9 @@ public class AboutActivity extends AppCompatActivity {
             finish();
         } else if (item.getItemId() == R.id.change_pin) {
             startActivity(new Intent(this, ChangePinActivity.class));
+            finish();
+        } else if (item.getItemId() == R.id.set_security_question) {
+            startActivity(new Intent(this, SecurityQuestionActivity.class));
             finish();
         }
 
