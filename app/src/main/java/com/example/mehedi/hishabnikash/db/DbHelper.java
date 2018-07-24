@@ -259,10 +259,11 @@ public class DbHelper extends SQLiteOpenHelper {
             String destination = cursor.getString(cursor.getColumnIndex("DESTINATION"));
             String vehicle = cursor.getString(cursor.getColumnIndex("VEHICLE_TYPE"));
             int amount = Integer.parseInt(cursor.getString(cursor.getColumnIndex("AMOUNT")));
+            int date = Integer.parseInt(cursor.getString(cursor.getColumnIndex("DATE")));
             int month = Integer.parseInt(cursor.getString(cursor.getColumnIndex("MONTH")));
             int year = Integer.parseInt(cursor.getString(cursor.getColumnIndex("YEAR")));
 
-            travelCostList.add(new TravelHistoryModel(id,source, destination, vehicle, amount));
+            travelCostList.add(new TravelHistoryModel(id,source, destination, vehicle, amount,date, month, year));
         }
 
         return travelCostList;
@@ -316,8 +317,11 @@ public class DbHelper extends SQLiteOpenHelper {
         String destination = cursor.getString(cursor.getColumnIndex("DESTINATION"));
         String vehicle = cursor.getString(cursor.getColumnIndex("VEHICLE_TYPE"));
         int amount = Integer.parseInt(cursor.getString(cursor.getColumnIndex("AMOUNT")));
+        int date = Integer.parseInt(cursor.getString(cursor.getColumnIndex("DATE")));
+        int month = Integer.parseInt(cursor.getString(cursor.getColumnIndex("MONTH")));
+        int year = Integer.parseInt(cursor.getString(cursor.getColumnIndex("YEAR")));
 
-        costList.add(new TravelHistoryModel(id,source,destination,vehicle,amount));
+        costList.add(new TravelHistoryModel(id,source,destination,vehicle,amount,date, month, year));
 
         return costList;
     }

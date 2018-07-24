@@ -32,10 +32,9 @@ public class OtherCostHolder {
         this.id = id;
         this.purpose = purpose;
         this.amount = amount;
-        calendar = Calendar.getInstance();
-        this.date = calendar.get(Calendar.DATE);
-        this.month = calendar.get(Calendar.MONTH) + 1;
-        this.year = calendar.get(Calendar.YEAR);
+        this.date = date;
+        this.month = month;
+        this.year = year;
     }
 
     public String getPurpose() {

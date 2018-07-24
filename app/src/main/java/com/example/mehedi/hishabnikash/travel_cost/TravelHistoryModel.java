@@ -26,7 +26,7 @@ public class TravelHistoryModel {
     }
 
 
-    public TravelHistoryModel (int id, String sourcePlace, String destinationPlace, String vehicleType, int amount) {
+    public TravelHistoryModel (int id, String sourcePlace, String destinationPlace, String vehicleType, int amount, int date, int month, int year) {
         this._id = id;
         this._sourcePlace = sourcePlace;
         this._destinationPlace = destinationPlace;
